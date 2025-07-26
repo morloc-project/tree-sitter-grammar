@@ -1,0 +1,28 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "grammar",
+      "path": ".",
+      "scope": "source.grammar",
+      "file-types": [
+        "grammar"
+      ],
+      "injection-regex": "^grammar$",
+      "highlights": "queries/highlights.scm"
+    }
+  ],
+  "metadata": {
+    "links": {
+      "repository": "https://github.com/morloc-project/tree-sitter-grammar"
+    },
+    "version": "0.1.0",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Zebulun Arendsee",
+        "email": "trepanger@proton.me"
+      }
+    ]
+  }
+}
