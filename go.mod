@@ -1,4 +1,4 @@
-module github.com/morloc-project/tree-sitter-grammar
+module github.com/morloc-project/morloc
 
 go 1.22
 

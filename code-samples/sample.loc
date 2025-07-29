@@ -1,0 +1,6 @@
+y x = 6
+z = f 1 where
+    yyy = f g
+    foo = f 44 g where
+    bar 55 = f 44 g
+y h = 7

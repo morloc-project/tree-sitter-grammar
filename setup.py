@@ -8,7 +8,7 @@ from setuptools.command.egg_info import egg_info
 from wheel.bdist_wheel import bdist_wheel
 
 sources = [
-    "bindings/python/tree_sitter_grammar/binding.c",
+    "bindings/python/tree_sitter_morloc/binding.c",
     "src/parser.c",
 ]
 if path.exists("src/scanner.c"):
@@ -30,7 +30,7 @@ else:
 class Build(build):
     def run(self):
         if path.isdir("queries"):
-            dest = path.join(self.build_lib, "tree_sitter_grammar", "queries")
+            dest = path.join(self.build_lib, "tree_sitter_morloc", "queries")
             self.copy_tree("queries", dest)
         super().run()
 
@@ -54,10 +54,10 @@ setup(
     packages=find_packages("bindings/python"),
     package_dir={"": "bindings/python"},
     package_data={
-        "tree_sitter_grammar": ["*.pyi", "py.typed"],
-        "tree_sitter_grammar.queries": ["*.scm"],
+        "tree_sitter_morloc": ["*.pyi", "py.typed"],
+        "tree_sitter_morloc.queries": ["*.scm"],
     },
-    ext_package="tree_sitter_grammar",
+    ext_package="tree_sitter_morloc",
     ext_modules=[
         Extension(
             name="_binding",

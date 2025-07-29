@@ -2,27 +2,38 @@
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
   "grammars": [
     {
-      "name": "grammar",
-      "path": ".",
-      "scope": "source.grammar",
-      "file-types": [
-        "grammar"
-      ],
-      "injection-regex": "^grammar$",
+      "name": "morloc",
+      "camelcase": "Morloc",
+      "title": "Morloc",
+      "scope": "source.morloc",
+      "file-types": [ "loc" ],
+      "injection-regex": "^morloc$",
+      "class-name": "TreeSitterMorloc",
       "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
-    "links": {
-      "repository": "https://github.com/morloc-project/tree-sitter-grammar"
-    },
     "version": "0.1.0",
     "license": "MIT",
+    "description": "A parser for the Morloc language",
     "authors": [
       {
         "name": "Zebulun Arendsee",
-        "email": "trepanger@proton.me"
+        "email": "z@morloc.io",
+        "url": "https://www.zebulun-arendsee.com/"
       }
-    ]
+    ],
+    "links": {
+      "repository": "https://github.com/morloc-project/morloc"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
   }
 }

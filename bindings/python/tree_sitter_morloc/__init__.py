@@ -1,4 +1,4 @@
-"""Grammar grammar for tree-sitter"""
+"""A parser for the Morloc language"""
 
 from importlib.resources import files as _files
 
