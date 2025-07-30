@@ -10,12 +10,12 @@ module.exports = grammar({
 
   name: 'morloc',
 
-  externals: $ => [$.indent, $.dedent, $.newline, $.left_aligned, /\s/],
+  externals: $ => [$._indent, $._dedent, $._newline, $._left_aligned, /\s/],
 
   extras: $ => [/\s/, /\n/, /\r/],
 
   rules: {
-    source_file: $ => repeat(seq($.left_aligned, $.declaration)),
+    source_file: $ => repeat(seq($._left_aligned, $.declaration)),
     declaration: $ => seq(
       field("lhs", $.identifier),
       repeat(field("boundVar", $.identifier)),
@@ -24,11 +24,10 @@ module.exports = grammar({
       optional($.block)
     ),
     block: $ => seq(
-      "where",
-      $.indent,
-      $.declaration, // There must be at least one
-      repeat(seq($.left_aligned, $.declaration)),
-      $.dedent
+      $.where,
+      $._indent,
+      repeat1(seq($._left_aligned, $.declaration)),
+      $._dedent
     ),
 
     _expression: $ => choice(
@@ -51,6 +50,7 @@ module.exports = grammar({
       $.number,
       parens($.application)
     ),
+    where: $ => "where",
     identifier: $ => /[a-z][a-z0-9_]*/,
     number: $ => /\d+/
   }

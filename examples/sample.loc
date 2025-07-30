@@ -1,0 +1,6 @@
+y x = g h
+z y = f 1 h where
+    yyy x = f g
+    foo y y = f 44 g
+y h = a 7 where
+    a = 1

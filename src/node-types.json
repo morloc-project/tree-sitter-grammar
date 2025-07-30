@@ -35,15 +35,7 @@
           "named": true
         },
         {
-          "type": "dedent",
-          "named": true
-        },
-        {
-          "type": "indent",
-          "named": true
-        },
-        {
-          "type": "left_aligned",
+          "type": "where",
           "named": true
         }
       ]
@@ -115,10 +107,6 @@
         {
           "type": "declaration",
           "named": true
-        },
-        {
-          "type": "left_aligned",
-          "named": true
         }
       ]
     }
@@ -136,19 +124,7 @@
     "named": false
   },
   {
-    "type": "dedent",
-    "named": true
-  },
-  {
     "type": "identifier",
-    "named": true
-  },
-  {
-    "type": "indent",
-    "named": true
-  },
-  {
-    "type": "left_aligned",
     "named": true
   },
   {
@@ -157,6 +133,6 @@
   },
   {
     "type": "where",
-    "named": false
+    "named": true
   }
 ]

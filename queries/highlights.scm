@@ -1,9 +1,7 @@
 (declaration lhs: (_) @keyword)
 (declaration rhs: (_) @string)
 (declaration boundVar: (_) @comment)
-
-"where" @keyword
-
+(where) @number
 "=" @operator
 
 (number) @number
