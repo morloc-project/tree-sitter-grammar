@@ -30,6 +30,8 @@ module.exports = grammar({
 
   extras: $ => [/\s/, /\n/, /\r/],
 
+  conflicts: $ => [[$.signature, $.declaration]],
+
   rules: {
     source_file: $ => sepBy1($._toplevel, $._left_aligned),
 
@@ -105,6 +107,7 @@ module.exports = grammar({
 
     signature: $ => seq(
       $.identifier,
+      repeat($.identifier),
       "::",
       $.type
     ),
@@ -122,7 +125,7 @@ module.exports = grammar({
     // --------- TYPE -------------------------------------------------------
 
     type: $ => choice(
-      seq($.taggableUpperIdentifier, repeat($._typeGroup)),
+      seq($.taggableIdentifierLU, repeat($._typeGroup)),
       $._sugarTypes,
       parens($.type),
       sepBy2($._typeGroup, "->"),
@@ -131,7 +134,7 @@ module.exports = grammar({
 
     // types
     _typeGroup: $ => choice(
-      $.taggableUpperIdentifier,
+      $.taggableIdentifierLU,
       $._sugarTypes,
       parens($.type),
       seq("(", ")")
@@ -192,7 +195,7 @@ module.exports = grammar({
     ),
 
     taggableIdentifier: $ => seq(optional($.tag), $.identifier),
-    taggableUpperIdentifier: $ => seq(optional($.tag), $.upperIdentifier),
+    taggableIdentifierLU: $ => seq(optional($.tag), choice($.identifier, $.upperIdentifier)),
 
     tag: $ => /[a-z][a-zA-Z0-9]*:/,
 

@@ -336,6 +336,13 @@
           "name": "identifier"
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
           "type": "STRING",
           "value": "::"
         },
@@ -416,7 +423,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "taggableUpperIdentifier"
+              "name": "taggableIdentifierLU"
             },
             {
               "type": "REPEAT",
@@ -493,7 +500,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "taggableUpperIdentifier"
+          "name": "taggableIdentifierLU"
         },
         {
           "type": "SYMBOL",
@@ -849,7 +856,7 @@
         }
       ]
     },
-    "taggableUpperIdentifier": {
+    "taggableIdentifierLU": {
       "type": "SEQ",
       "members": [
         {
@@ -865,8 +872,17 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "upperIdentifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "upperIdentifier"
+            }
+          ]
         }
       ]
     },
@@ -1090,7 +1106,12 @@
       "value": "\\r"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "signature",
+      "declaration"
+    ]
+  ],
   "precedences": [],
   "externals": [
     {
