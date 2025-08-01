@@ -2,4 +2,4 @@ type Foo = Bar
 type Py => Foo = "Bar"
 type Py => Foo = Bar
 type Py => Foo a b = "Baz" a b
-foo b :: A -> ([A b], B)
+foo b :: x:A -> ([A b], B)

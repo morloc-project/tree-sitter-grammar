@@ -158,7 +158,7 @@ module.exports = grammar({
     block: $ => seq(
       "where",
       $._indent,
-      sepBy1($.declaration, $._left_aligned),
+      repeat1(seq($._left_aligned, $.declaration)),
       $._dedent
     ),
 
@@ -170,14 +170,14 @@ module.exports = grammar({
 
     application: $ => choice(
       seq(
-        $.taggableIdentifier,
+        $.taggableIdentifierL,
         repeat1($._expressionSimple)
       ),
       seq(
         parens(choice(
           $.application,
           $.composition,
-          $.taggableIdentifier
+          $.taggableIdentifierL
         )),
         repeat1($._expressionSimple)
       )
@@ -186,7 +186,7 @@ module.exports = grammar({
     composition: $ => sepBy2($._expressionSimple, "."),
 
     _expressionSimple: $ => choice(
-      $.taggableIdentifier,
+      $.taggableIdentifierL,
       $._primitiveExpr,
       $.listExpr,
       $.tupleExpr,
@@ -194,7 +194,7 @@ module.exports = grammar({
       parens($.application)
     ),
 
-    taggableIdentifier: $ => seq(optional($.tag), $.identifier),
+    taggableIdentifierL: $ => seq(optional($.tag), $.identifier),
     taggableIdentifierLU: $ => seq(optional($.tag), choice($.identifier, $.upperIdentifier)),
 
     tag: $ => /[a-z][a-zA-Z0-9]*:/,

@@ -13,9 +13,14 @@ enum TokenType {
 };
 
 typedef struct {
+  // each value contains the total indentation
   uint32_t indents[MAX_INDENT];
+  // current number of indents (indexes into the `indents` array) 
   uint32_t level;
-  uint32_t dedent_space;
+  // total number of unused DEDENTs
+  uint32_t dedents;
+  // are we currently in whitespace?
+  // this stupid variable keeps creeping back every time I delete it
   bool in_whitespace;
 } Scanner;
 
@@ -31,83 +36,62 @@ bool tree_sitter_morloc_external_scanner_scan(
         case '\n':
             scanner->in_whitespace = true;
             lexer->advance(lexer, true);
-            scanner->dedent_space = 0;
+            scanner->dedents = 0;
             break;
     }
 
-    if(valid_symbols[DEDENT] && lexer->get_column(lexer) == 0){
-        if(scanner->level == 1){
-            if(lexer->get_column(lexer) == scanner->indents[0] && lexer->lookahead != ' '){
-                lexer->result_symbol = DEDENT;
-                scanner->indents[1] = 0;
-                scanner->level--;
-                return true;
-            }
-        }
-    }
-
-        /* // No indentation, so dedentation is impossible                */
-        /* if(scanner->level == 0){                                          */
-        /*     return false;                                              */
-        /* }                                                              */
-        /* while(lexer->lookahead == ' '){                                */
-        /*     lexer->advance(lexer, true);                               */
-        /* }                                                              */
-        /* in_whitespace = false;                                         */
-        /* // This is the first dedent                                    */
-        /* if (scanner->dedent_space == 0){                                        */
-        /*     if(lexer->get_column(lexer) < scanner->indents[scanner->level]){ */
-        /*         scanner->dedent_space = lexer->get_column(lexer);               */
-        /*     } else {                                                   */
-        /*         return false;                                          */
-        /*     }                                                          */
-        /* }                                                              */
-        /* scanner->level--;                                                 */
-        /* if(scanner->dedent_space < scanner->indents[scanner->level]){                 */
-        /*     return false;                                              */
-        /* }                                                              */
-        /* while(scanner->dedent_space > scanner->indents[scanner->level]){              */
-        /*     scanner->dedent_space--;                                            */
-        /* }                                                              */
-        /* lexer->result_symbol = DEDENT;                                 */
-        /* return true;                                                   */
-
-    if(valid_symbols[LEFT_ALIGNED]){
-        if(scanner->in_whitespace){
-            while(lexer->get_column(lexer) < scanner->indents[scanner->level]){
-                if(lexer->lookahead == ' '){
-                    lexer->advance(lexer, true);
-                } else {
-                    scanner->in_whitespace = false;
-                    return false;
-                }
-            }
-        }
-
-        if(lexer->get_column(lexer) == scanner->indents[scanner->level] &&
-           lexer->lookahead != ' '  &&
-           lexer->lookahead != '\0' &&
-           lexer->lookahead != '\n'
-          ){
-            scanner->in_whitespace = false;
-            lexer->result_symbol = LEFT_ALIGNED;
-            return true;
-        }
-    }
-
-    if(lexer->get_column(lexer) == 0 && valid_symbols[INDENT]){
+    // either we just passed a newline OR we are at the start of the file
+    if(scanner->in_whitespace){
+        // eat the space
         while(lexer->lookahead == ' '){
             lexer->advance(lexer, true);
         }
-        scanner->in_whitespace = false;
-        if(lexer->get_column(lexer) > scanner->indents[scanner->level]){
-            scanner->level++;
-            scanner->indents[scanner->level] = lexer->get_column(lexer);
-            lexer->result_symbol = INDENT;
-            return true;
+        // if relevant, find our current dedent level
+        if( scanner->dedents == 0 &&
+            lexer->get_column(lexer) < scanner->indents[scanner->level]
+        ){
+            for(int i = scanner->level; i >= 0; i--){
+                if(lexer->get_column(lexer) == scanner->indents[i]){
+                    scanner->dedents = scanner->level - i;
+                }
+            }
         }
     }
 
+    // loop through all the required dedents, once per scanner call
+    if( valid_symbols[DEDENT] &&
+        scanner->level > 0 &&
+        scanner->dedents > 0
+    ){
+        scanner->indents[scanner->level] = 0;
+        scanner->level--;
+        scanner->dedents--;
+        lexer->result_symbol = DEDENT;
+        return true;
+    }
+
+    // check if we are left aligned to the current indent level
+    if(valid_symbols[LEFT_ALIGNED] &&
+       scanner->in_whitespace &&
+       lexer->get_column(lexer) == scanner->indents[scanner->level]
+    ){
+        lexer->result_symbol = LEFT_ALIGNED;
+        scanner->in_whitespace = false;
+        return true;
+    }
+
+    // set a new indent level (e.g., after a "where" term)
+    if( valid_symbols[INDENT] &&
+        scanner->in_whitespace &&
+        lexer->get_column(lexer) > scanner->indents[scanner->level]
+    ){
+        scanner->level++;
+        scanner->indents[scanner->level] = lexer->get_column(lexer);
+        lexer->result_symbol = INDENT;
+        return true;
+    }
+
+    scanner->in_whitespace = false;
     return false;
 }
           
@@ -126,7 +110,7 @@ void tree_sitter_morloc_external_scanner_reset(void *payload) {
   Scanner *scanner = (Scanner *)payload;
   memset(scanner->indents, 0, sizeof(scanner->indents));
   scanner->level = 0;
-  scanner->dedent_space = 0;
+  scanner->dedents = 0;
   scanner->in_whitespace = true;
 }
 

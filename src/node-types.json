@@ -36,7 +36,7 @@
           "named": true
         },
         {
-          "type": "taggableIdentifier",
+          "type": "taggableIdentifierL",
           "named": true
         },
         {
@@ -103,7 +103,7 @@
           "named": true
         },
         {
-          "type": "taggableIdentifier",
+          "type": "taggableIdentifierL",
           "named": true
         },
         {
@@ -182,7 +182,7 @@
             "named": true
           },
           {
-            "type": "taggableIdentifier",
+            "type": "taggableIdentifierL",
             "named": true
           },
           {
@@ -289,7 +289,7 @@
           "named": true
         },
         {
-          "type": "taggableIdentifier",
+          "type": "taggableIdentifierL",
           "named": true
         },
         {
@@ -378,7 +378,7 @@
           "named": true
         },
         {
-          "type": "taggableIdentifier",
+          "type": "taggableIdentifierL",
           "named": true
         },
         {
@@ -475,7 +475,7 @@
     }
   },
   {
-    "type": "taggableIdentifier",
+    "type": "taggableIdentifierL",
     "named": true,
     "fields": {},
     "children": {
@@ -553,7 +553,7 @@
           "named": true
         },
         {
-          "type": "taggableIdentifier",
+          "type": "taggableIdentifierL",
           "named": true
         },
         {
