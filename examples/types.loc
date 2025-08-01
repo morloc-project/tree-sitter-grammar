@@ -1,5 +1,0 @@
-type Foo = Bar
-type Py => Foo = "Bar"
-type Py => Foo = Bar
-type Py => Foo a b = "Baz" a b
-foo b :: x:A -> ([A b], B)

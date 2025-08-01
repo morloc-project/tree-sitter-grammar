@@ -26,17 +26,18 @@ module.exports = grammar({
 
   name: 'morloc',
 
-  externals: $ => [$._indent, $._dedent, $._left_aligned, /\n/],
+  externals: $ => [$._indent, $._dedent, $._left_aligned, $._eof],
 
-  extras: $ => [/\s/, /\n/, /\r/],
+  extras: $ => [/\s/, /\n/, /\r/, $.lineComment, $.blockComment],
 
   conflicts: $ => [[$.signature, $.declaration]],
 
   rules: {
-    source_file: $ => sepBy1($._toplevel, $._left_aligned),
+    source_file: $ => seq(sepBy1($._toplevel, $._left_aligned), $._eof),
+
+    word: $ => $.identifier,
 
     _toplevel: $ => choice(
-      $.comment,
       $.module,
       $.import,
       $.source,
@@ -48,59 +49,58 @@ module.exports = grammar({
 
     // --------- COMMENT ------------------------------------------------------
 
-    comment: $ => choice(
-      $._lineComment,
-      $._blockComment
-    ),
-
     // general comment
-    _lineComment: $ => /--[^']?(?:[^\r\n])*/,
-    _blockComment: $ => token(
-      seq( 
-        "{-",
-        repeat(choice(
-          /-[^}]/,
-          /[^-]/
-        )),
-        "-}"
-      )
-    ),
+    lineComment: $ => /--[^\n\r]*/,
 
+    blockComment: $ => seq(
+      "{-",
+      repeat(choice(
+        /[^-][}]/,
+        /.[^}]/,
+      )),
+      "-}"
+    ),
 
     // --------- MODULE --------------------------------------------------------
 
     // module <module_name> ([export..])
     module: $ => seq(
       "module",
-      $.identifier,
+      field("moduleName", $.identifier),
       parens(
         choice(
           "*",
-          sepBy1($.exportOrImportExpr, ",")
+          sepBy($.identifier, ",")
         )
       )
-    ),
-
-    exportOrImportExpr: $ => seq(
-      field("name", $.identifier),
-      optional(seq("as", field("alias", $.identifier)))
     ),
 
     // --------- IMPORT --------------------------------------------------------
 
     import: $ => seq(
       "import",
-      $.identifier,
-      optional(parens(repeat($.exportOrImportExpr)))
+      field("moduleName", $.identifier),
+      optional(parens(sepBy($.importTerm, ",")))
     ),
+
+    importTerm: $ => seq(
+      field("name", $.identifier),
+      optional(seq("as", field("alias", $.identifier)))
+    ),
+
 
     // --------- SOURCE --------------------------------------------------------
 
     source: $ => seq(
       "source",
-      $.upperIdentifier,
-      optional(seq( "from", $.string)),
-      parens(repeat1(seq($.string, optional(seq("as", $.identifier)))))
+      field("language", $.identifierU),
+      field("sourceFile", optional(seq( "from", $.string))),
+      parens(sepBy($.sourceTerm, ","))
+    ),
+
+    sourceTerm: $ => seq(
+      field("name", $.string),
+      optional(seq("as", field("alias", $.identifier)))
     ),
 
     // --------- SIGNATURE -----------------------------------------------------
@@ -116,7 +116,7 @@ module.exports = grammar({
 
     typedef: $ => seq(
       "type",
-      optional(seq($.upperIdentifier, "=>")),
+      optional(seq($.identifierU, "=>")),
       $.type,
       "=",
       choice($.type, seq($.string, repeat($.identifier)))
@@ -149,10 +149,10 @@ module.exports = grammar({
 
     declaration: $ => seq(
       field("lhs", $.identifier),
-      repeat(field("boundVar", $.identifier)),
+      repeat(field("arg", $.identifier)),
       '=',
       field("rhs", $._expression),
-      optional($.block)
+      field("where", optional($.block))
     ),
 
     block: $ => seq(
@@ -170,14 +170,14 @@ module.exports = grammar({
 
     application: $ => choice(
       seq(
-        $.taggableIdentifierL,
+        $._term,
         repeat1($._expressionSimple)
       ),
       seq(
         parens(choice(
           $.application,
           $.composition,
-          $.taggableIdentifierL
+          $._term
         )),
         repeat1($._expressionSimple)
       )
@@ -186,7 +186,7 @@ module.exports = grammar({
     composition: $ => sepBy2($._expressionSimple, "."),
 
     _expressionSimple: $ => choice(
-      $.taggableIdentifierL,
+      $._term,
       $._primitiveExpr,
       $.listExpr,
       $.tupleExpr,
@@ -194,14 +194,21 @@ module.exports = grammar({
       parens($.application)
     ),
 
-    taggableIdentifierL: $ => seq(optional($.tag), $.identifier),
-    taggableIdentifierLU: $ => seq(optional($.tag), choice($.identifier, $.upperIdentifier)),
+    taggableIdentifierLU: $ => seq(optional($.tag), choice($.identifier, $.identifierU)),
+
+
+    // Morloc terms can be associated with metadata
+    //
+    _term: $ => choice(
+      field("taggedTerm",  seq($.tag, $.identifier)),
+      field("term", $.identifier)
+    ),
 
     tag: $ => /[a-z][a-zA-Z0-9]*:/,
 
     identifier: $ => /[a-z][a-zA-Z0-9_']*/,
 
-    upperIdentifier: $ => /[A-Z][a-zA-Z0-9]*/,
+    identifierU: $ => /[A-Z][a-zA-Z0-9]*/,
 
     listExpr: $ => brackets(sepBy($._expression, ",")),
 

@@ -1,6 +1,0 @@
-z = f where
-    y = g where
-        y = 1 where
-            h = f "asdf"
-        zz = [1]
-x = 1

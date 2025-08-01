@@ -1,0 +1,42 @@
+==============================
+import - no imported values
+===============================
+
+import foo ()
+
+---
+
+(source_file
+  (import
+    moduleName: (identifier)))
+
+
+===============================
+import - universal import
+===============================
+
+import foo
+
+---
+
+(source_file
+  (import
+    moduleName: (identifier)))
+
+
+===============================
+import - specific values
+===============================
+
+import foo (a, b as c)
+
+---
+
+(source_file
+  (import
+    moduleName: (identifier)
+    (importTerm
+      name: (identifier))
+    (importTerm
+      name: (identifier)
+      alias: (identifier))))

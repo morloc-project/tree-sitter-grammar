@@ -1,0 +1,43 @@
+==============================
+module - no exported values
+===============================
+
+module foo ()
+
+---
+
+(source_file
+  (module
+    (identifier)))
+
+
+===============================
+module - universal export
+===============================
+
+module foo (*)
+
+---
+
+(source_file
+  (module
+    (identifier)))
+
+
+
+===============================
+module - multiple export
+===============================
+
+module foo
+ ( a
+ , b
+ )
+
+---
+
+(source_file
+  (module
+    moduleName: (identifier)
+    (identifier)
+    (identifier)))

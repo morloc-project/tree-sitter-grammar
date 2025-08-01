@@ -2,10 +2,35 @@
   {
     "type": "application",
     "named": true,
-    "fields": {},
+    "fields": {
+      "taggedTerm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      },
+      "term": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "application",
@@ -36,10 +61,6 @@
           "named": true
         },
         {
-          "type": "taggableIdentifierL",
-          "named": true
-        },
-        {
           "type": "true",
           "named": true
         },
@@ -66,17 +87,42 @@
     }
   },
   {
-    "type": "comment",
+    "type": "blockComment",
     "named": true,
     "fields": {}
   },
   {
     "type": "composition",
     "named": true,
-    "fields": {},
+    "fields": {
+      "taggedTerm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      },
+      "term": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "application",
@@ -103,10 +149,6 @@
           "named": true
         },
         {
-          "type": "taggableIdentifierL",
-          "named": true
-        },
-        {
           "type": "true",
           "named": true
         },
@@ -121,7 +163,7 @@
     "type": "declaration",
     "named": true,
     "fields": {
-      "boundVar": {
+      "arg": {
         "multiple": true,
         "required": false,
         "types": [
@@ -166,6 +208,10 @@
             "named": true
           },
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
             "type": "listExpr",
             "named": true
           },
@@ -182,7 +228,7 @@
             "named": true
           },
           {
-            "type": "taggableIdentifierL",
+            "type": "tag",
             "named": true
           },
           {
@@ -194,21 +240,71 @@
             "named": true
           }
         ]
+      },
+      "taggedTerm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      },
+      "term": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "where": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "import",
+    "named": true,
+    "fields": {
+      "moduleName": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "block",
+          "type": "importTerm",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "exportOrImportExpr",
+    "type": "importTerm",
     "named": true,
     "fields": {
       "alias": {
@@ -234,28 +330,34 @@
     }
   },
   {
-    "type": "import",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "exportOrImportExpr",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "listExpr",
     "named": true,
-    "fields": {},
+    "fields": {
+      "taggedTerm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      },
+      "term": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -289,10 +391,6 @@
           "named": true
         },
         {
-          "type": "taggableIdentifierL",
-          "named": true
-        },
-        {
           "type": "true",
           "named": true
         },
@@ -306,15 +404,22 @@
   {
     "type": "module",
     "named": true,
-    "fields": {},
+    "fields": {
+      "moduleName": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "exportOrImportExpr",
-          "named": true
-        },
         {
           "type": "identifier",
           "named": true
@@ -340,7 +445,32 @@
   {
     "type": "recordExprEntry",
     "named": true,
-    "fields": {},
+    "fields": {
+      "taggedTerm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      },
+      "term": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -375,10 +505,6 @@
         },
         {
           "type": "string",
-          "named": true
-        },
-        {
-          "type": "taggableIdentifierL",
           "named": true
         },
         {
@@ -414,24 +540,67 @@
   {
     "type": "source",
     "named": true,
-    "fields": {},
+    "fields": {
+      "language": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
+      "sourceFile": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "from",
+            "named": false
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "upperIdentifier",
+          "type": "sourceTerm",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "sourceTerm",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -443,10 +612,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "comment",
-          "named": true
-        },
         {
           "type": "declaration",
           "named": true
@@ -475,25 +640,6 @@
     }
   },
   {
-    "type": "taggableIdentifierL",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "tag",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "taggableIdentifierLU",
     "named": true,
     "fields": {},
@@ -506,11 +652,11 @@
           "named": true
         },
         {
-          "type": "tag",
+          "type": "identifierU",
           "named": true
         },
         {
-          "type": "upperIdentifier",
+          "type": "tag",
           "named": true
         }
       ]
@@ -519,10 +665,35 @@
   {
     "type": "tupleExpr",
     "named": true,
-    "fields": {},
+    "fields": {
+      "taggedTerm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      },
+      "term": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "application",
@@ -550,10 +721,6 @@
         },
         {
           "type": "string",
-          "named": true
-        },
-        {
-          "type": "taggableIdentifierL",
           "named": true
         },
         {
@@ -599,15 +766,15 @@
           "named": true
         },
         {
+          "type": "identifierU",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
         {
           "type": "type",
-          "named": true
-        },
-        {
-          "type": "upperIdentifier",
           "named": true
         }
       ]
@@ -631,6 +798,10 @@
   },
   {
     "type": "->",
+    "named": false
+  },
+  {
+    "type": "-}",
     "named": false
   },
   {
@@ -674,8 +845,17 @@
     "named": true
   },
   {
+    "type": "identifierU",
+    "named": true
+  },
+  {
     "type": "import",
     "named": false
+  },
+  {
+    "type": "lineComment",
+    "named": true,
+    "extra": true
   },
   {
     "type": "module",
@@ -706,15 +886,15 @@
     "named": false
   },
   {
-    "type": "upperIdentifier",
-    "named": true
-  },
-  {
     "type": "where",
     "named": false
   },
   {
     "type": "{",
+    "named": false
+  },
+  {
+    "type": "{-",
     "named": false
   },
   {

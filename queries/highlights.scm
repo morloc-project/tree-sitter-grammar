@@ -1,8 +1,9 @@
 (declaration lhs: (_) @function)
 (declaration rhs: (_) @attribute)
-(declaration boundVar: (_) @comment)
+(declaration arg: (_) @comment)
 (number) @number
-(comment) @comment
+(lineComment) @comment
+(blockComment) @comment
 (string) @string
 (true) @constant
 (false) @constant

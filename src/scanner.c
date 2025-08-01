@@ -9,7 +9,8 @@ enum TokenType {
   INDENT,
   DEDENT,
   LEFT_ALIGNED,
-  NEWLINE
+  NEWLINE,
+  END_OF_FILE
 };
 
 typedef struct {
@@ -37,10 +38,12 @@ bool tree_sitter_morloc_external_scanner_scan(
             scanner->in_whitespace = true;
             lexer->advance(lexer, true);
             scanner->dedents = 0;
-            break;
+            lexer->result_symbol = NEWLINE;
+            return true;
     }
 
     if(lexer->lookahead == '\0'){
+        lexer->result_symbol = END_OF_FILE;
         return false;
     }
 

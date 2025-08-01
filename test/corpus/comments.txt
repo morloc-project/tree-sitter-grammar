@@ -1,0 +1,44 @@
+==============================
+line comment
+===============================
+
+  -- this is a comment
+  -- this is a comment
+x = 1 -- a
+-- d
+-- b
+
+---
+
+(source_file
+  (lineComment)
+  (lineComment)
+  (declaration
+    lhs: (identifier)
+    rhs: (number))
+  (lineComment)
+  (lineComment)
+  (lineComment))
+
+
+==============================
+block comment
+===============================
+
+
+{- { } -}
+x = {- sdf df -} 1 -- hi
+{-  df
+ er -}
+
+---
+
+(source_file
+  (blockComment)
+  (declaration
+    lhs: (identifier)
+    (blockComment)
+    rhs: (number))
+  (lineComment)
+  (blockComment))
+
