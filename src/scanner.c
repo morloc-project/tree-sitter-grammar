@@ -40,6 +40,10 @@ bool tree_sitter_morloc_external_scanner_scan(
             break;
     }
 
+    if(lexer->lookahead == '\0'){
+        return false;
+    }
+
     // either we just passed a newline OR we are at the start of the file
     if(scanner->in_whitespace){
         // eat the space
