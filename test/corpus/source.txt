@@ -1,5 +1,5 @@
 ==============================
-source - source nothing
+source nothing
 ===============================
 
 source Py ()
@@ -12,7 +12,7 @@ source Py ()
 
 
 ==============================
-source - source from builtins
+source from builtins
 ===============================
 
 source Py ("map" as m, "sum")
@@ -29,8 +29,8 @@ source Py ("map" as m, "sum")
       name: (string))))
 
 
-==============================
-source - source from file
+===============================
+source from file
 ===============================
 
 source Py from "foo.py" ("foo")

@@ -106,44 +106,48 @@ module.exports = grammar({
     // --------- SIGNATURE -----------------------------------------------------
 
     signature: $ => seq(
-      $.identifier,
-      repeat($.identifier),
+      field("name", $.identifier),
+      field("arg", repeat($.identifier)),
       "::",
-      $.type
+      field("def", $._type)
     ),
 
     // --------- TYPEDEF -------------------------------------------------------
 
     typedef: $ => seq(
       "type",
-      optional(seq($.identifierU, "=>")),
-      $.type,
+      optional(seq(field("language", $.identifierU), "=>")),
+      field("lhs", $._type),
       "=",
-      choice($.type, seq($.string, repeat($.identifier)))
+      field("rhs", choice($._type, seq($.string, repeat($.identifier))))
     ),
 
     // --------- TYPE -------------------------------------------------------
 
-    type: $ => choice(
-      seq($.taggableIdentifierLU, repeat($._typeGroup)),
-      $._sugarTypes,
-      parens($.type),
-      sepBy2($._typeGroup, "->"),
+    _type: $ => choice(
+      $.paramT,
+      $.listType,
+      $.tupleType,
+      parens($._type),
+      $.functionT,
       seq("(", ")")
     ),
+
+    paramT: $ => seq($._taggableIdentifierLU, repeat($._typeGroup)),
+
+    functionT: $ => sepBy2($._typeGroup, "->"),
 
     // types
     _typeGroup: $ => choice(
-      $.taggableIdentifierLU,
-      $._sugarTypes,
-      parens($.type),
+      $._taggableIdentifierLU,
+      $.listType,
+      $.tupleType,
+      parens($._type),
       seq("(", ")")
     ),
 
-    _sugarTypes: $ => choice(
-      brackets($.type),
-      parens(sepBy2($.type, ","))
-    ),
+    listType: $ => brackets($._type),
+    tupleType: $ => parens(sepBy2($._type, ",")),
 
     // --------- DECLARATION ---------------------------------------------------
 
@@ -183,7 +187,7 @@ module.exports = grammar({
       )
     ),
 
-    composition: $ => sepBy2($._expressionSimple, "."),
+    composition: $ => sepBy2($._functionLike, "."),
 
     _expressionSimple: $ => choice(
       $._term,
@@ -194,8 +198,24 @@ module.exports = grammar({
       parens($.application)
     ),
 
-    taggableIdentifierLU: $ => seq(optional($.tag), choice($.identifier, $.identifierU)),
+    _functionLike: $ => choice(
+      $._term,
+      $.application
+    ),
 
+    _taggableIdentifierLU: $ => choice(
+      field("generic", $.identifier),
+      field("concrete", $.identifierU),
+      $.taggedType
+    ),
+
+    taggedType: $ => seq(
+      $.tag,
+      choice(
+        field("generic", $.identifier),
+        field("concrete", $.identifierU)
+      )
+    ),
 
     // Morloc terms can be associated with metadata
     //

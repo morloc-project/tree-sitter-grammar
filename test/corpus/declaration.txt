@@ -1,0 +1,77 @@
+==============================
+x = 1
+===============================
+
+x = 1
+
+---
+
+(source_file
+  (declaration
+    lhs: (identifier)
+    rhs: (number)))
+
+
+==============================
+foo x y = bar (x, 42, "string", True, False) [y]
+===============================
+
+foo x y = bar (x, 42, "string", True, False) [y]
+
+---
+
+(source_file
+  (declaration
+    lhs: (identifier)
+    arg: (identifier)
+    arg: (identifier)
+    rhs: (application
+      term: (identifier)
+      (tupleExpr
+        term: (identifier)
+        (number)
+        (string)
+        (true)
+        (false))
+      (listExpr
+        term: (identifier)))))
+
+==============================
+foo = bar . baz
+===============================
+
+foo = bar . baz
+
+---
+
+(source_file
+  (declaration
+    lhs: (identifier)
+    rhs: (composition
+      term: (identifier)
+      term: (identifier))))
+
+
+==============================
+foo x y = (bar x . baz y) 42
+===============================
+
+foo x y = (bar x . baz y) 42
+
+---
+
+(source_file
+  (declaration
+    lhs: (identifier)
+    arg: (identifier)
+    arg: (identifier)
+    rhs: (application
+      (composition
+        (application
+          term: (identifier)
+          term: (identifier))
+        (application
+          term: (identifier)
+          term: (identifier)))
+      (number))))
+

@@ -1,0 +1,40 @@
+===============================
+id a :: a -> a
+===============================
+
+id a :: a -> a
+
+---
+
+(source_file
+  (signature
+    name: (identifier)
+    arg: (identifier)
+    def: (functionT
+      generic: (identifier)
+      generic: (identifier))))
+
+
+===============================
+map a b :: (a -> b) -> [a] -> [b]
+===============================
+
+map a b :: (a -> b) -> [a] -> [b]
+
+---
+
+(source_file
+  (signature
+    name: (identifier)
+    arg: (identifier)
+    arg: (identifier)
+    def: (functionT
+      (functionT
+        generic: (identifier)
+        generic: (identifier))
+      (listType
+        (paramT
+          generic: (identifier)))
+      (listType
+        (paramT
+          generic: (identifier))))))

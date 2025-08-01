@@ -1,0 +1,54 @@
+===============================
+type Cpp => Foo a b = big:Bar a small:b
+===============================
+
+type Cpp => Foo a b = big:Bar a small:b
+
+---
+
+(source_file
+  (typedef
+    language: (identifierU)
+    lhs: (paramT
+      concrete: (identifierU)
+      generic: (identifier)
+      generic: (identifier))
+    rhs: (paramT
+      (taggedType
+        (tag)
+        concrete: (identifierU))
+      generic: (identifier)
+      (taggedType
+        (tag)
+        generic: (identifier)))))
+
+
+===============================
+parameterized types and sugar
+===============================
+
+type Foo b = (A [T] c, b c, [(Int, Bar)])
+
+---
+
+(source_file
+  (typedef
+    lhs: (paramT
+      concrete: (identifierU)
+      generic: (identifier))
+    rhs: (tupleType
+      (paramT
+        concrete: (identifierU)
+        (listType
+          (paramT
+            concrete: (identifierU)))
+        generic: (identifier))
+      (paramT
+        generic: (identifier)
+        generic: (identifier))
+      (listType
+        (tupleType
+          (paramT
+            concrete: (identifierU))
+          (paramT
+            concrete: (identifierU)))))))

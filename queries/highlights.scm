@@ -1,17 +1,24 @@
 (declaration lhs: (_) @function)
-(declaration rhs: (_) @attribute)
-(declaration arg: (_) @comment)
+(declaration rhs: (_) @variable)
+(declaration arg: (_) @variable)
+
+(signature name: (_) @type)
+
 (number) @number
-(lineComment) @comment
-(blockComment) @comment
 (string) @string
 (true) @constant
 (false) @constant
+
+(lineComment) @comment
+(blockComment) @comment
 (tag) @comment
+
 "=" @operator
 "->" @operator
 "=>" @operator
 "::" @operator
+"." @operator
+
 "where" @keyword
 "module" @keyword
 "import" @keyword
@@ -19,6 +26,7 @@
 "from" @keyword
 "as" @keyword
 "type" @keyword
+
 "," @punctuation.delimiter
 "{" @punctuation.bracket
 "}" @punctuation.bracket
