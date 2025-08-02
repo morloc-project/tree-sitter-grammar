@@ -341,12 +341,22 @@
           }
         ]
       },
-      "name": {
+      "term": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifierU",
             "named": true
           }
         ]

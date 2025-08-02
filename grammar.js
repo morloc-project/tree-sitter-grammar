@@ -84,7 +84,10 @@ module.exports = grammar({
     ),
 
     importTerm: $ => seq(
-      field("name", $.identifier),
+      choice(
+        field("term", $.identifier),
+        field("type", $.identifierU)
+      ),
       optional(seq("as", field("alias", $.identifier)))
     ),
 

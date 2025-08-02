@@ -36,7 +36,23 @@ import foo (a, b as c)
   (import
     moduleName: (identifier)
     (importTerm
-      name: (identifier))
+      term: (identifier))
     (importTerm
-      name: (identifier)
+      term: (identifier)
       alias: (identifier))))
+
+===============================
+specific types
+===============================
+
+import foo (Int, x)
+
+---
+
+(source_file
+  (import
+    moduleName: (identifier)
+    (importTerm
+      type: (identifierU))
+    (importTerm
+      term: (identifier))))
