@@ -1,0 +1,26 @@
+===============================
+Packable class
+===============================
+
+class Packable a b where
+  pack :: a -> b
+  unpack :: b -> a
+
+---
+
+(source_file
+  (typeclass
+    class: (identifierU)
+    generic: (identifier)
+    generic: (identifier)
+    where: (interface
+      (signature
+        name: (identifier)
+        def: (functionT
+          generic: (identifier)
+          generic: (identifier)))
+      (signature
+        name: (identifier)
+        def: (functionT
+          generic: (identifier)
+          generic: (identifier))))))

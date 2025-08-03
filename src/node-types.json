@@ -364,6 +364,21 @@
     }
   },
   {
+    "type": "interface",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "signature",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "listExpr",
     "named": true,
     "fields": {
@@ -783,6 +798,10 @@
           "named": true
         },
         {
+          "type": "typeclass",
+          "named": true
+        },
+        {
           "type": "typedef",
           "named": true
         }
@@ -925,6 +944,94 @@
     }
   },
   {
+    "type": "typeclass",
+    "named": true,
+    "fields": {
+      "class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
+      "concrete": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
+      "generic": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "param": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "functionT",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "identifierU",
+            "named": true
+          },
+          {
+            "type": "listType",
+            "named": true
+          },
+          {
+            "type": "paramT",
+            "named": true
+          },
+          {
+            "type": "taggedType",
+            "named": true
+          },
+          {
+            "type": "tupleType",
+            "named": true
+          }
+        ]
+      },
+      "where": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "typedef",
     "named": true,
     "fields": {
@@ -1058,6 +1165,10 @@
   },
   {
     "type": "as",
+    "named": false
+  },
+  {
+    "type": "class",
     "named": false
   },
   {

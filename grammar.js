@@ -41,6 +41,7 @@ module.exports = grammar({
       $.module,
       $.import,
       $.source,
+      $.typeclass,
       $.typedef,
       $.signature,
       $.declaration
@@ -151,6 +152,23 @@ module.exports = grammar({
 
     listType: $ => brackets($._type),
     tupleType: $ => parens(sepBy2($._type, ",")),
+
+
+    // --------- TYPECLASS -----------------------------------------------------
+
+    typeclass: $ => seq(
+      "class", 
+      field("class", $.identifierU), 
+      field("param", repeat($._typeGroup)),
+      field("where", $.interface)
+    ),
+
+    interface: $ => seq(
+      "where",
+      $._indent,
+      repeat1(seq($._left_aligned, $.signature)),
+      $._dedent
+    ),
 
     // --------- DECLARATION ---------------------------------------------------
 
