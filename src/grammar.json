@@ -190,10 +190,10 @@
         },
         {
           "type": "FIELD",
-          "name": "moduleName",
+          "name": "modulePath",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "modulePath"
           }
         },
         {
@@ -249,6 +249,39 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "modulePath": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "segment",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "FIELD",
+                "name": "segment",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              }
+            ]
+          }
         }
       ]
     },

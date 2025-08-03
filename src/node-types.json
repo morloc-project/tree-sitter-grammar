@@ -324,12 +324,12 @@
     "type": "import",
     "named": true,
     "fields": {
-      "moduleName": {
+      "modulePath": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "modulePath",
             "named": true
           }
         ]
@@ -608,6 +608,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "modulePath",
+    "named": true,
+    "fields": {
+      "segment": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

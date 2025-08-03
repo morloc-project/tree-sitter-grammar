@@ -81,9 +81,11 @@ module.exports = grammar({
 
     import: $ => seq(
       "import",
-      field("moduleName", $.identifier),
+      field("modulePath", $.modulePath),
       optional(parens(sepBy($.importTerm, ",")))
     ),
+
+    modulePath: $ => sepBy1(field("segment", $.identifier), "."),
 
     importTerm: $ => seq(
       choice(
