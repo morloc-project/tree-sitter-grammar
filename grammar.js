@@ -26,14 +26,14 @@ module.exports = grammar({
 
   name: 'morloc',
 
-  externals: $ => [$._indent, $._dedent, $._left_aligned, $._eof],
+  externals: $ => [$._indent, $._dedent, $._left_aligned, /\n/],
 
   extras: $ => [/\s/, /\n/, /\r/, $.lineComment, $.blockComment],
 
   conflicts: $ => [[$.signature, $.declaration]],
 
   rules: {
-    source_file: $ => seq(sepBy1($._toplevel, $._left_aligned), $._eof),
+    source_file: $ => seq($._toplevel, repeat(seq($._left_aligned, optional($._toplevel)))),
 
     word: $ => $.identifier,
 

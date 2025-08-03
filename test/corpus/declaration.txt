@@ -75,3 +75,58 @@ foo x y = (bar x . baz y) 42
           term: (identifier)))
       (number))))
 
+
+==============================
+multiple statements
+===============================
+
+x = 1
+x = 2
+
+---
+
+(source_file
+  (declaration
+    lhs: (identifier)
+    rhs: (number))
+  (declaration
+    lhs: (identifier)
+    rhs: (number)))
+
+
+==============================
+nested wheres
+===============================
+
+x = 1
+x = y where
+    y = z where
+        z = w where
+            w = 1
+    g = 4
+
+---
+
+(source_file
+  (declaration
+    lhs: (identifier)
+    rhs: (number))
+  (declaration
+    lhs: (identifier)
+    term: (identifier)
+    where: (block
+      (declaration
+        lhs: (identifier)
+        term: (identifier)
+        where: (block
+          (declaration
+            lhs: (identifier)
+            term: (identifier)
+            where: (block
+              (declaration
+                lhs: (identifier)
+                rhs: (number))))))
+      (declaration
+        lhs: (identifier)
+        rhs: (number)))))
+
