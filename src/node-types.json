@@ -560,7 +560,28 @@
   {
     "type": "listType",
     "named": true,
-    "fields": {},
+    "fields": {
+      "concrete": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
+      "generic": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": false,
@@ -575,6 +596,10 @@
         },
         {
           "type": "paramT",
+          "named": true
+        },
+        {
+          "type": "taggedType",
           "named": true
         },
         {
@@ -787,6 +812,16 @@
           }
         ]
       },
+      "concrete": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
       "def": {
         "multiple": true,
         "required": true,
@@ -804,6 +839,14 @@
             "named": true
           },
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "identifierU",
+            "named": true
+          },
+          {
             "type": "listType",
             "named": true
           },
@@ -812,7 +855,21 @@
             "named": true
           },
           {
+            "type": "taggedType",
+            "named": true
+          },
+          {
             "type": "tupleType",
+            "named": true
+          }
+        ]
+      },
+      "generic": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1050,7 +1107,28 @@
   {
     "type": "tupleType",
     "named": true,
-    "fields": {},
+    "fields": {
+      "concrete": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
+      "generic": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -1065,6 +1143,10 @@
         },
         {
           "type": "paramT",
+          "named": true
+        },
+        {
+          "type": "taggedType",
           "named": true
         },
         {
@@ -1166,6 +1248,26 @@
     "type": "typedef",
     "named": true,
     "fields": {
+      "concrete": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
+      "generic": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "language": {
         "multiple": false,
         "required": false,
@@ -1193,11 +1295,23 @@
             "named": true
           },
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "identifierU",
+            "named": true
+          },
+          {
             "type": "listType",
             "named": true
           },
           {
             "type": "paramT",
+            "named": true
+          },
+          {
+            "type": "taggedType",
             "named": true
           },
           {
@@ -1227,6 +1341,10 @@
             "named": true
           },
           {
+            "type": "identifierU",
+            "named": true
+          },
+          {
             "type": "listType",
             "named": true
           },
@@ -1236,6 +1354,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "taggedType",
             "named": true
           },
           {

@@ -33,8 +33,6 @@ map a b :: (a -> b) -> [a] -> [b]
         generic: (identifier)
         generic: (identifier))
       (listType
-        (paramT
-          generic: (identifier)))
+        generic: (identifier))
       (listType
-        (paramT
-          generic: (identifier))))))
+        generic: (identifier)))))

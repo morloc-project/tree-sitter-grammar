@@ -31,6 +31,11 @@ bool tree_sitter_morloc_external_scanner_scan(
 {
     Scanner *scanner = (Scanner *)payload;
 
+    // eat whitespace
+    while(lexer->lookahead == ' '){
+        lexer->advance(lexer, true);
+    }
+
     switch (lexer->lookahead) {
         case '\r':
         case '\n':

@@ -40,15 +40,20 @@ type Foo b = (A [T] c, b c, [(Int, Bar)])
       (paramT
         concrete: (identifierU)
         (listType
-          (paramT
-            concrete: (identifierU)))
+          concrete: (identifierU))
         generic: (identifier))
       (paramT
         generic: (identifier)
         generic: (identifier))
       (listType
         (tupleType
-          (paramT
-            concrete: (identifierU))
-          (paramT
-            concrete: (identifierU)))))))
+          concrete: (identifierU)
+          concrete: (identifierU))))))
+
+
+===============================
+adjacent typedefs
+===============================
+
+type A = "B" 
+type C = "D" 

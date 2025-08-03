@@ -17,10 +17,8 @@ instance Packable [(a, b)] (Map a b) where
     class: (identifierU)
     param: (listType
       (tupleType
-        (paramT
-          generic: (identifier))
-        (paramT
-          generic: (identifier))))
+        generic: (identifier)
+        generic: (identifier)))
     param: (paramT
       concrete: (identifierU)
       generic: (identifier)
@@ -41,4 +39,3 @@ instance Packable [(a, b)] (Map a b) where
       (declaration
         lhs: (identifier)
         term: (identifier)))))
-

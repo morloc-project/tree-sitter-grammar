@@ -128,12 +128,16 @@ module.exports = grammar({
       optional(seq(field("language", $.identifierU), "=>")),
       field("lhs", $._type),
       "=",
-      field("rhs", choice($._type, seq($.string, repeat($.identifier))))
+      field("rhs", choice(
+        $._type,
+        seq($.string, repeat($._typeGroup)))
+      )
     ),
 
     // --------- TYPE -------------------------------------------------------
 
     _type: $ => choice(
+      $._taggableIdentifierLU,
       $.paramT,
       $.listType,
       $.tupleType,
@@ -142,7 +146,7 @@ module.exports = grammar({
       seq("(", ")")
     ),
 
-    paramT: $ => seq($._taggableIdentifierLU, repeat($._typeGroup)),
+    paramT: $ => seq($._taggableIdentifierLU, repeat1($._typeGroup)),
 
     functionT: $ => sepBy2($._typeGroup, "->"),
 
