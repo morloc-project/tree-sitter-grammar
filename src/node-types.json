@@ -588,12 +588,12 @@
     "type": "module",
     "named": true,
     "fields": {
-      "moduleName": {
+      "modulePath": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "modulePath",
             "named": true
           }
         ]
@@ -605,6 +605,10 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "star",
           "named": true
         }
       ]
@@ -1251,10 +1255,6 @@
     "named": false
   },
   {
-    "type": "*",
-    "named": false
-  },
-  {
     "type": ",",
     "named": false
   },
@@ -1338,6 +1338,10 @@
   {
     "type": "source",
     "named": false
+  },
+  {
+    "type": "star",
+    "named": true
   },
   {
     "type": "string",

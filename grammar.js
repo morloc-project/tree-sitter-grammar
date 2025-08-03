@@ -68,14 +68,18 @@ module.exports = grammar({
     // module <module_name> ([export..])
     module: $ => seq(
       "module",
-      field("moduleName", $.identifier),
+      field("modulePath", $.modulePath),
       parens(
         choice(
-          "*",
+          $.star,
           sepBy($.identifier, ",")
         )
       )
     ),
+
+    star: $ => "*",
+
+    modulePath: $ => sepBy1(field("segment", $.identifier), "."),
 
     // --------- IMPORT --------------------------------------------------------
 
@@ -84,8 +88,6 @@ module.exports = grammar({
       field("modulePath", $.modulePath),
       optional(parens(sepBy($.importTerm, ",")))
     ),
-
-    modulePath: $ => sepBy1(field("segment", $.identifier), "."),
 
     importTerm: $ => seq(
       choice(

@@ -118,10 +118,10 @@
         },
         {
           "type": "FIELD",
-          "name": "moduleName",
+          "name": "modulePath",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "modulePath"
           }
         },
         {
@@ -135,8 +135,8 @@
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "*"
+                  "type": "SYMBOL",
+                  "name": "star"
                 },
                 {
                   "type": "CHOICE",
@@ -178,6 +178,43 @@
               "value": ")"
             }
           ]
+        }
+      ]
+    },
+    "star": {
+      "type": "STRING",
+      "value": "*"
+    },
+    "modulePath": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "segment",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "FIELD",
+                "name": "segment",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              }
+            ]
+          }
         }
       ]
     },
@@ -249,39 +286,6 @@
               "type": "BLANK"
             }
           ]
-        }
-      ]
-    },
-    "modulePath": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "segment",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "."
-              },
-              {
-                "type": "FIELD",
-                "name": "segment",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                }
-              }
-            ]
-          }
         }
       ]
     },
