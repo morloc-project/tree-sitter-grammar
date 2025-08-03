@@ -42,6 +42,7 @@ module.exports = grammar({
       $.import,
       $.source,
       $.typeclass,
+      $.instance,
       $.typedef,
       $.signature,
       $.declaration
@@ -167,6 +168,24 @@ module.exports = grammar({
       "where",
       $._indent,
       repeat1(seq($._left_aligned, $.signature)),
+      $._dedent
+    ),
+
+
+    // --------- INSTANCE ------------------------------------------------------
+
+    instance: $ => seq(
+      "instance",
+      field("class", $.identifierU), 
+      field("param", repeat($._typeGroup)),
+      field("where", $.implementation)
+
+    ),
+
+    implementation: $ => seq(
+      "where",
+      $._indent,
+      repeat1(seq($._left_aligned, choice($.source, $.declaration))),
       $._dedent
     ),
 

@@ -1,0 +1,44 @@
+===============================
+Packable instance
+===============================
+
+instance Packable [(a, b)] (Map a b) where
+    source R from "foo.R"
+        ( "packMap" as pack
+        , "unpackMap" as unpack
+        )
+    pack = toList
+    unpack = fromList
+
+---
+
+(source_file
+  (instance
+    class: (identifierU)
+    param: (listType
+      (tupleType
+        (paramT
+          generic: (identifier))
+        (paramT
+          generic: (identifier))))
+    param: (paramT
+      concrete: (identifierU)
+      generic: (identifier)
+      generic: (identifier))
+    where: (implementation
+      (source
+        language: (identifierU)
+        sourceFile: (string)
+        (sourceTerm
+          name: (string)
+          alias: (identifier))
+        (sourceTerm
+          name: (string)
+          alias: (identifier)))
+      (declaration
+        lhs: (identifier)
+        term: (identifier))
+      (declaration
+        lhs: (identifier)
+        term: (identifier)))))
+

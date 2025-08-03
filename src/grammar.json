@@ -60,6 +60,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "instance"
+        },
+        {
+          "type": "SYMBOL",
           "name": "typedef"
         },
         {
@@ -789,6 +793,84 @@
               {
                 "type": "SYMBOL",
                 "name": "signature"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dedent"
+        }
+      ]
+    },
+    "instance": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "instance"
+        },
+        {
+          "type": "FIELD",
+          "name": "class",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifierU"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "param",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_typeGroup"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "where",
+          "content": {
+            "type": "SYMBOL",
+            "name": "implementation"
+          }
+        }
+      ]
+    },
+    "implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "where"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_indent"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_left_aligned"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "source"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "declaration"
+                  }
+                ]
               }
             ]
           }
