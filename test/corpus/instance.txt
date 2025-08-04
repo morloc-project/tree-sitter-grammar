@@ -25,7 +25,7 @@ instance Packable [(a, b)] (Map a b) where
       generic: (identifier))
     where: (implementation
       (source
-        language: (identifierU)
+        (language)
         sourceFile: (string)
         (sourceTerm
           name: (string)

@@ -486,6 +486,11 @@
     }
   },
   {
+    "type": "language",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "listExpr",
     "named": true,
     "fields": {
@@ -708,6 +713,82 @@
     }
   },
   {
+    "type": "recdef",
+    "named": true,
+    "fields": {
+      "constructor": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "entry": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "recordTypeEntry",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
+      "param": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "language",
+          "named": true
+        },
+        {
+          "type": "objectDef",
+          "named": true
+        },
+        {
+          "type": "recordDef",
+          "named": true
+        },
+        {
+          "type": "tableDef",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "recordExpr",
     "named": true,
     "fields": {},
@@ -796,6 +877,84 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "recordTypeEntry",
+    "named": true,
+    "fields": {
+      "concrete": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifierU",
+            "named": true
+          }
+        ]
+      },
+      "generic": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "functionT",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "identifierU",
+            "named": true
+          },
+          {
+            "type": "listType",
+            "named": true
+          },
+          {
+            "type": "paramT",
+            "named": true
+          },
+          {
+            "type": "taggedType",
+            "named": true
+          },
+          {
+            "type": "tupleType",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -890,16 +1049,6 @@
     "type": "source",
     "named": true,
     "fields": {
-      "language": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifierU",
-            "named": true
-          }
-        ]
-      },
       "sourceFile": {
         "multiple": true,
         "required": false,
@@ -917,8 +1066,12 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
+        {
+          "type": "language",
+          "named": true
+        },
         {
           "type": "sourceTerm",
           "named": true
@@ -975,6 +1128,10 @@
         },
         {
           "type": "module",
+          "named": true
+        },
+        {
+          "type": "recdef",
           "named": true
         },
         {
@@ -1268,61 +1425,9 @@
           }
         ]
       },
-      "language": {
-        "multiple": false,
+      "native": {
+        "multiple": true,
         "required": false,
-        "types": [
-          {
-            "type": "identifierU",
-            "named": true
-          }
-        ]
-      },
-      "lhs": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "functionT",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "identifierU",
-            "named": true
-          },
-          {
-            "type": "listType",
-            "named": true
-          },
-          {
-            "type": "paramT",
-            "named": true
-          },
-          {
-            "type": "taggedType",
-            "named": true
-          },
-          {
-            "type": "tupleType",
-            "named": true
-          }
-        ]
-      },
-      "rhs": {
-        "multiple": true,
-        "required": true,
         "types": [
           {
             "type": "(",
@@ -1366,6 +1471,36 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "functionT",
+          "named": true
+        },
+        {
+          "type": "language",
+          "named": true
+        },
+        {
+          "type": "listType",
+          "named": true
+        },
+        {
+          "type": "paramT",
+          "named": true
+        },
+        {
+          "type": "taggedType",
+          "named": true
+        },
+        {
+          "type": "tupleType",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1458,6 +1593,14 @@
     "named": true
   },
   {
+    "type": "objectDef",
+    "named": true
+  },
+  {
+    "type": "recordDef",
+    "named": true
+  },
+  {
     "type": "source",
     "named": false
   },
@@ -1467,6 +1610,10 @@
   },
   {
     "type": "string",
+    "named": true
+  },
+  {
+    "type": "tableDef",
     "named": true
   },
   {

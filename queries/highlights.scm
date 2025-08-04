@@ -34,6 +34,10 @@
   "type"
 ] @keyword
 
+(recordDef) @keyword
+(objectDef) @keyword
+(tableDef) @keyword
+
 
 "," @punctuation.delimiter
 

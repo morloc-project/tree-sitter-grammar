@@ -8,7 +8,7 @@ source Py ()
 
 (source_file
   (source
-    language: (identifierU)))
+    (language)))
 
 
 ==============================
@@ -21,7 +21,7 @@ source Py ("map" as m, "sum")
 
 (source_file
   (source
-    language: (identifierU)
+    (language)
     (sourceTerm
       name: (string)
       alias: (identifier))
@@ -39,7 +39,7 @@ source Py from "foo.py" ("foo")
 
 (source_file
   (source
-    language: (identifierU)
+    (language)
     sourceFile: (string)
     (sourceTerm
       name: (string))))

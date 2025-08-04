@@ -1,4 +1,28 @@
 ===============================
+type Foo a b = big:Bar a small:b
+===============================
+
+type Foo a b = big:Bar a small:b
+
+---
+
+(source_file
+  (typedef
+    (paramT
+      concrete: (identifierU)
+      generic: (identifier)
+      generic: (identifier))
+    (paramT
+      (taggedType
+        (tag)
+        concrete: (identifierU))
+      generic: (identifier)
+      (taggedType
+        (tag)
+        generic: (identifier)))))
+
+
+===============================
 type Cpp => Foo a b = big:Bar a small:b
 ===============================
 
@@ -8,12 +32,12 @@ type Cpp => Foo a b = big:Bar a small:b
 
 (source_file
   (typedef
-    language: (identifierU)
-    lhs: (paramT
+    (language)
+    (paramT
       concrete: (identifierU)
       generic: (identifier)
       generic: (identifier))
-    rhs: (paramT
+    (paramT
       (taggedType
         (tag)
         concrete: (identifierU))
@@ -33,10 +57,10 @@ type Foo b = (A [T] c, b c, [(Int, Bar)])
 
 (source_file
   (typedef
-    lhs: (paramT
+    (paramT
       concrete: (identifierU)
       generic: (identifier))
-    rhs: (tupleType
+    (tupleType
       (paramT
         concrete: (identifierU)
         (listType
@@ -52,8 +76,182 @@ type Foo b = (A [T] c, b c, [(Int, Bar)])
 
 
 ===============================
-adjacent typedefs
+Native typedef
 ===============================
 
-type A = "B" 
-type C = "D" 
+type Cpp => A = "B"
+
+---
+
+(source_file
+  (typedef
+    (language)
+    concrete: (identifierU)
+    native: (string)))
+
+
+===============================
+Parameterized native typedef
+===============================
+
+type Cpp => A a = "B" a
+
+---
+
+(source_file
+  (typedef
+    (language)
+    (paramT
+      concrete: (identifierU)
+      generic: (identifier))
+    native: (string)
+    generic: (identifier)))
+
+
+===============================
+Parameterized record definition
+===============================
+
+record (Person a) = Person {name :: Str, info :: a}
+
+---
+
+(source_file
+  (recdef
+    (recordDef)
+    name: (identifierU)
+    param: (identifier)
+    constructor: (identifierU)
+    entry: (recordTypeEntry
+      key: (identifier)
+      concrete: (identifierU))
+    entry: (recordTypeEntry
+      key: (identifier)
+      generic: (identifier))))
+
+
+
+===============================
+Parameterized table definition
+===============================
+
+table (Person a) = Person {name :: Str, info :: a}
+
+---
+
+(source_file
+  (recdef
+    (tableDef)
+    name: (identifierU)
+    param: (identifier)
+    constructor: (identifierU)
+    entry: (recordTypeEntry
+      key: (identifier)
+      concrete: (identifierU))
+    entry: (recordTypeEntry
+      key: (identifier)
+      generic: (identifier))))
+
+
+
+===============================
+Parameterized object definition
+===============================
+
+object (Person a) = Person {name :: Str, info :: a}
+
+---
+
+(source_file
+  (recdef
+    (objectDef)
+    name: (identifierU)
+    param: (identifier)
+    constructor: (identifierU)
+    entry: (recordTypeEntry
+      key: (identifier)
+      concrete: (identifierU))
+    entry: (recordTypeEntry
+      key: (identifier)
+      generic: (identifier))))
+
+
+
+===============================
+Unparameterized record definition
+===============================
+
+record Person = Person {name :: Str, info :: [Int]}
+
+---
+
+(source_file
+  (recdef
+    (recordDef)
+    name: (identifierU)
+    constructor: (identifierU)
+    entry: (recordTypeEntry
+      key: (identifier)
+      concrete: (identifierU))
+    entry: (recordTypeEntry
+      key: (identifier)
+      value: (listType
+        concrete: (identifierU)))))
+
+
+===============================
+Parameterized concrete record definition
+===============================
+
+record (Person a) = Person {name :: Str, info :: a}
+record Cpp => (Person a) = "person_t"
+
+---
+
+(source_file
+  (recdef
+    (recordDef)
+    name: (identifierU)
+    param: (identifier)
+    constructor: (identifierU)
+    entry: (recordTypeEntry
+      key: (identifier)
+      concrete: (identifierU))
+    entry: (recordTypeEntry
+      key: (identifier)
+      generic: (identifier)))
+  (recdef
+    (recordDef)
+    (language)
+    name: (identifierU)
+    param: (identifier)
+    constructor: (string)))
+
+
+===============================
+Unparameterized concrete record definition
+===============================
+
+record Person = Person {name :: Str, info :: [Int]}
+record cpp => Person = "person_t"
+
+---
+
+(source_file
+  (recdef
+    (recordDef)
+    name: (identifierU)
+    constructor: (identifierU)
+    entry: (recordTypeEntry
+      key: (identifier)
+      concrete: (identifierU))
+    entry: (recordTypeEntry
+      key: (identifier)
+      value: (listType
+        concrete: (identifierU))))
+  (recdef
+    (recordDef)
+    (language)
+    name: (identifierU)
+    constructor: (string)))
+

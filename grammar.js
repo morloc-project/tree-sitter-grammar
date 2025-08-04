@@ -44,6 +44,7 @@ module.exports = grammar({
       $.typeclass,
       $.instance,
       $.typedef,
+      $.recdef,
       $.signature,
       $.declaration
     ),
@@ -102,7 +103,7 @@ module.exports = grammar({
 
     source: $ => seq(
       "source",
-      field("language", $.identifierU),
+      $.language,
       field("sourceFile", optional(seq( "from", $.string))),
       parens(sepBy($.sourceTerm, ","))
     ),
@@ -125,12 +126,62 @@ module.exports = grammar({
 
     typedef: $ => seq(
       "type",
-      optional(seq(field("language", $.identifierU), "=>")),
-      field("lhs", $._type),
+      optional(seq(
+        $.language,
+        "=>"
+      )),
+      $._type,
       "=",
-      field("rhs", choice(
+      choice(
         $._type,
-        seq($.string, repeat($._typeGroup)))
+        field("native", seq($.string, repeat($._typeGroup)))
+      )
+    ),
+
+    recdef: $ => seq(
+      $._recform,
+      optional(seq(
+        $.language,
+        "=>"
+      )),
+      $._recordName,
+      "=", 
+      $._recordType
+    ),
+
+    _recform: $ => choice(
+        $.recordDef,
+        $.tableDef,
+        $.objectDef 
+    ),
+
+    recordDef: $ => "record",
+    tableDef: $ => "table",
+    objectDef: $ => "object",
+
+    _recordType: $ => seq(
+      field("constructor", choice(
+        $.identifierU,
+        $.string
+      )),
+      optional(seq(
+      "{",
+      field("entry", sepBy($.recordTypeEntry, ",")),
+      "}"
+      ))
+    ),
+
+    recordTypeEntry: $ => seq(
+      field("key", $.identifier),
+      "::",
+      field("value", $._type)
+    ),
+
+    _recordName: $ => choice(
+      parens($._recordName),
+      seq(
+        field("name", $.identifierU),
+        field("param", repeat($.identifier))
       )
     ),
 
@@ -255,6 +306,14 @@ module.exports = grammar({
       field("generic", $.identifier),
       field("concrete", $.identifierU),
       $.taggedType
+    ),
+
+    // language: $ => /[A-Za-z][A-Za-z0-9]*/,
+    language: $ => choice(
+      /[Rr]/,
+      /[Cc]pp/,
+      /[Pp]y/,
+      /[Pp]ython3?/
     ),
 
     taggedType: $ => seq(
