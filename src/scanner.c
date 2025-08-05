@@ -24,33 +24,33 @@ typedef struct {
   bool in_whitespace;
 } Scanner;
 
-
 bool tree_sitter_morloc_external_scanner_scan(
     void *payload, TSLexer *lexer,
     const bool *valid_symbols)
 {
     Scanner *scanner = (Scanner *)payload;
 
-    // eat whitespace
-    while(lexer->lookahead == ' '){
-        lexer->advance(lexer, true);
-    }
-
-    switch (lexer->lookahead) {
-        case '\r':
-        case '\n':
-            scanner->in_whitespace = true;
-            lexer->advance(lexer, true);
-            scanner->dedents = 0;
-            break;
+    // skip empty lines
+    bool has_space = true;
+    while(has_space){
+        switch (lexer->lookahead) {
+            case '\r':
+            case '\n':
+                scanner->in_whitespace = true;
+                lexer->advance(lexer, true);
+                scanner->dedents = 0;
+                break;
+            case ' ':
+            case '\t':
+                lexer->advance(lexer, true);
+                break;
+            default:
+                has_space = false;
+        }
     }
 
     // either we just passed a newline OR we are at the start of the file
     if(scanner->in_whitespace){
-        // eat the space
-        while(lexer->lookahead == ' '){
-            lexer->advance(lexer, true);
-        }
         // if relevant, find our current dedent level
         if( scanner->dedents == 0 &&
             lexer->get_column(lexer) < scanner->indents[scanner->level]
@@ -64,15 +64,21 @@ bool tree_sitter_morloc_external_scanner_scan(
     }
 
     // loop through all the required dedents, once per scanner call
-    if( valid_symbols[DEDENT] &&
-        scanner->level > 0 &&
-        scanner->dedents > 0
-    ){
-        scanner->indents[scanner->level] = 0;
-        scanner->level--;
-        scanner->dedents--;
-        lexer->result_symbol = DEDENT;
-        return true;
+    if( valid_symbols[DEDENT] ){
+        // EOF can count as however many DEDENT as are needed
+        if(lexer->lookahead == '\0'){
+            lexer->result_symbol = DEDENT;
+            return true;
+        }
+
+        // In other cases, check if we are indented and have any dedents left over
+        if(scanner->level > 0 && scanner->dedents > 0){
+            scanner->indents[scanner->level] = 0;
+            scanner->level--;
+            scanner->dedents--;
+            lexer->result_symbol = DEDENT;
+            return true;
+        }
     }
 
     // check if we are left aligned to the current indent level

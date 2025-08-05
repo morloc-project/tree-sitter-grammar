@@ -352,7 +352,7 @@ module.exports = grammar({
 
     identifier: $ => /[a-z][a-zA-Z0-9_']*/,
 
-    identifierU: $ => /[A-Z][a-zA-Z0-9]*/,
+    identifierU: $ => /[A-Z][a-zA-Z0-9_']*/,
 
     listExpr: $ => brackets(sepBy($._expression, ",")),
 

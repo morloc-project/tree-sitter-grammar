@@ -1539,7 +1539,7 @@
     },
     "identifierU": {
       "type": "PATTERN",
-      "value": "[A-Z][a-zA-Z0-9]*"
+      "value": "[A-Z][a-zA-Z0-9_']*"
     },
     "listExpr": {
       "type": "SEQ",

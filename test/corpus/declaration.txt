@@ -1,8 +1,8 @@
 ==============================
-x = 1
+x' = 1
 ===============================
 
-x = 1
+x' = 1
 
 ---
 
@@ -56,7 +56,7 @@ x = { name = "Alice", age = 42 }
         (identifier)
         (number)))))
 
-==============================
+===============================
 foo = bar . baz
 ===============================
 
@@ -70,6 +70,17 @@ foo = bar . baz
     rhs: (composition
       (identifier)
       (identifier))))
+
+
+===============================
+foo = map (f . f)
+===============================
+
+foo = map (f . f)
+
+---
+
+stub
 
 
 ==============================
@@ -169,3 +180,95 @@ x = y where
         lhs: (identifier)
         rhs: (number)))))
 
+
+==============================
+where spacing
+===============================
+
+x = 1
+x = y where
+    y = z
+
+    z = w
+---
+
+(source_file
+  (declaration
+    (identifier)
+    (number))
+  (declaration
+    (identifier)
+    (identifier)
+    (block
+      (declaration
+        (identifier)
+        (identifier))
+      (declaration
+        (identifier)
+        (identifier)))))
+
+==============================
+where spacing (non-zero blank)
+===============================
+
+x = 1    
+x = y    where      
+       
+    y = z 
+  
+    z =    w
+---
+
+(source_file
+  (declaration
+    (identifier)
+    (number))
+  (declaration
+    (identifier)
+    (identifier)
+    (block
+      (declaration
+        (identifier)
+        (identifier))
+      (declaration
+        (identifier)
+        (identifier)))))
+
+==============================
+nested wheres (spacing)
+===============================
+
+x = 1
+x = y where
+
+    y = z where
+  
+        z = w where
+                          
+            w = 1
+    g = 4
+
+---
+
+(source_file
+  (declaration
+    lhs: (identifier)
+    rhs: (number))
+  (declaration
+    lhs: (identifier)
+    rhs: (identifier)
+    where: (block
+      (declaration
+        lhs: (identifier)
+        rhs: (identifier)
+        where: (block
+          (declaration
+            lhs: (identifier)
+            rhs: (identifier)
+            where: (block
+              (declaration
+                lhs: (identifier)
+                rhs: (number))))))
+      (declaration
+        lhs: (identifier)
+        rhs: (number)))))

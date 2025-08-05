@@ -44,3 +44,12 @@ source Py from "foo.py" ("foo")
     (sourceTerm
       name: (string))))
 
+===============================
+source type
+===============================
+
+source Py from "foo.py" ("PersonObj" as Person)
+
+---
+
+stub
