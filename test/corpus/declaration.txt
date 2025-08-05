@@ -56,6 +56,70 @@ x = { name = "Alice", age = 42 }
         (identifier)
         (number)))))
 
+==============================
+x r = x r@k1 . y r@k2
+==============================
+
+x r = x r@k1 . y r@k2
+
+---
+
+(source_file
+  (declaration
+    (identifier)
+    (identifier)
+    (composition
+      (application
+        (identifier)
+        (recordAccess
+          (identifier)
+          (identifier)))
+      (application
+        (identifier)
+        (recordAccess
+          (identifier)
+          (identifier))))))
+
+==============================
+foo x = (f x)@key
+==============================
+
+foo x = (f x)@key
+
+---
+
+(source_file
+  (declaration
+    (identifier)
+    (identifier)
+    (recordAccess
+      (application
+        (identifier)
+        (identifier))
+      (identifier))))
+
+==============================
+foo = {k = 1, r = 2}@k
+==============================
+
+foo = {k = 1, r = 2}@k
+
+---
+
+(source_file
+  (declaration
+    (identifier)
+    (recordAccess
+      (recordExpr
+        (recordExprEntry
+          (identifier)
+          (number))
+        (recordExprEntry
+          (identifier)
+          (number)))
+      (identifier))))
+
+
 ===============================
 foo = bar . baz
 ===============================

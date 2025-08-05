@@ -51,6 +51,10 @@
           "named": true
         },
         {
+          "type": "recordAccess",
+          "named": true
+        },
+        {
           "type": "recordExpr",
           "named": true
         },
@@ -189,6 +193,10 @@
           },
           {
             "type": "number",
+            "named": true
+          },
+          {
+            "type": "recordAccess",
             "named": true
           },
           {
@@ -531,6 +539,10 @@
           "named": true
         },
         {
+          "type": "recordAccess",
+          "named": true
+        },
+        {
           "type": "recordExpr",
           "named": true
         },
@@ -603,6 +615,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "recordAccess",
           "named": true
         },
         {
@@ -855,6 +871,44 @@
     }
   },
   {
+    "type": "recordAccess",
+    "named": true,
+    "fields": {
+      "taggedTerm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "application",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "recordExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "recordExpr",
     "named": true,
     "fields": {},
@@ -918,6 +972,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "recordAccess",
           "named": true
         },
         {
@@ -1305,6 +1363,10 @@
           "named": true
         },
         {
+          "type": "recordAccess",
+          "named": true
+        },
+        {
           "type": "recordExpr",
           "named": true
         },
@@ -1599,6 +1661,10 @@
   },
   {
     "type": "=>",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {

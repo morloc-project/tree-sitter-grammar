@@ -302,6 +302,7 @@ module.exports = grammar({
       $.listExpr,
       $.tupleExpr,
       $.recordExpr,
+      $.recordAccess,
       parens($.application),
       parens($.lambdaExpr),
       parens($.composition)
@@ -311,6 +312,18 @@ module.exports = grammar({
       $._term,
       $.application,
       parens($.lambdaExpr)
+    ),
+
+    recordAccess: $ => seq(
+      $._recordLike,
+      "@",
+      $.identifier,
+    ),
+
+    _recordLike: $ => choice(
+      $._term,
+      $.recordExpr,
+      parens($.application)
     ),
 
     _taggableIdentifierLU: $ => choice(

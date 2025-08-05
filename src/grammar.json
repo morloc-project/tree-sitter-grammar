@@ -1374,6 +1374,10 @@
           "name": "recordExpr"
         },
         {
+          "type": "SYMBOL",
+          "name": "recordAccess"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
@@ -1447,6 +1451,53 @@
             {
               "type": "SYMBOL",
               "name": "lambdaExpr"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
+    },
+    "recordAccess": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_recordLike"
+        },
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "_recordLike": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "recordExpr"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "application"
             },
             {
               "type": "STRING",
