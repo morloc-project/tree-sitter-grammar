@@ -80,7 +80,14 @@ foo = map (f . f)
 
 ---
 
-stub
+(source_file
+  (declaration
+    (identifier)
+    (application
+      (identifier)
+      (composition
+        (identifier)
+        (identifier)))))
 
 
 ==============================

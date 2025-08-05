@@ -303,7 +303,8 @@ module.exports = grammar({
       $.tupleExpr,
       $.recordExpr,
       parens($.application),
-      parens($.lambdaExpr)
+      parens($.lambdaExpr),
+      parens($.composition)
     ),
 
     _functionLike: $ => choice(
