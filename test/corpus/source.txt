@@ -52,4 +52,10 @@ source Py from "foo.py" ("PersonObj" as Person)
 
 ---
 
-stub
+    (source_file
+      (source
+        (language)
+        (string)
+        (sourceTerm
+          (string)
+          (identifierU))))

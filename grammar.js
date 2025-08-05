@@ -73,7 +73,7 @@ module.exports = grammar({
       parens(
         choice(
           $.star,
-          sepBy($.identifier, ",")
+          sepBy(choice($.identifier, $.identifierU), ",")
         )
       )
     ),
@@ -95,7 +95,7 @@ module.exports = grammar({
         field("term", $.identifier),
         field("type", $.identifierU)
       ),
-      optional(seq("as", field("alias", $.identifier)))
+      optional(seq("as", field("alias", choice($.identifier, $.identifierU))))
     ),
 
 
@@ -110,7 +110,7 @@ module.exports = grammar({
 
     sourceTerm: $ => seq(
       field("name", $.string),
-      optional(seq("as", field("alias", $.identifier)))
+      optional(seq("as", field("alias", choice($.identifier, $.identifierU))))
     ),
 
     // --------- SIGNATURE -----------------------------------------------------

@@ -33,7 +33,7 @@ multiple export
 
 module foo
  ( a
- , b
+ , B
  )
 
 ---
@@ -43,7 +43,7 @@ module foo
     modulePath: (modulePath
       segment: (identifier))
     (identifier)
-    (identifier)))
+    (identifierU)))
 
 
 
