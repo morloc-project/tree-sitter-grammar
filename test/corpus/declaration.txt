@@ -36,6 +36,26 @@ foo x y = bar (x, 42, "string", True, False) [y]
       (listExpr
         term: (identifier)))))
 
+
+==============================
+record definition
+===============================
+
+x = { name = "Alice", age = 42 }
+
+---
+
+(source_file
+  (declaration
+    lhs: (identifier)
+    rhs: (recordExpr
+      (recordExprEntry
+        (identifier)
+        (string))
+      (recordExprEntry
+        (identifier)
+        (number)))))
+
 ==============================
 foo = bar . baz
 ===============================
@@ -75,6 +95,15 @@ foo x y = (bar x . baz y) 42
           term: (identifier)))
       (number))))
 
+==============================
+foo = map (\x -> bar x)
+===============================
+
+foo = map (\x -> bar x)
+
+---
+
+stub
 
 ==============================
 multiple statements

@@ -119,7 +119,7 @@ module.exports = grammar({
       field("name", $.identifier),
       field("arg", repeat($.identifier)),
       "::",
-      field("def", $._type)
+      field("value", $._type)
     ),
 
     // --------- TYPEDEF -------------------------------------------------------
@@ -134,7 +134,7 @@ module.exports = grammar({
       "=",
       choice(
         $._type,
-        field("native", seq($.string, repeat($._typeGroup)))
+        field("native", seq($.string, repeat($._typeCommon)))
       )
     ),
 
@@ -188,21 +188,28 @@ module.exports = grammar({
     // --------- TYPE -------------------------------------------------------
 
     _type: $ => choice(
-      $._taggableIdentifierLU,
+      $._typeCommon,
       $.paramT,
-      $.listType,
-      $.tupleType,
-      parens($._type),
-      $.functionT,
-      seq("(", ")")
+      $.functionT
     ),
 
-    paramT: $ => seq($._taggableIdentifierLU, repeat1($._typeGroup)),
+    paramT: $ => seq($._taggableIdentifierLU, repeat1($._typeParamGroup)),
 
-    functionT: $ => sepBy2($._typeGroup, "->"),
+    // types allowed as parameters
+    _typeParamGroup: $ => choice(
+      $._typeCommon
+    ),
 
-    // types
-    _typeGroup: $ => choice(
+    functionT: $ => sepBy2($._typeFunGroup, "->"),
+
+    // types allowed in functions
+    _typeFunGroup: $ => choice(
+      $._typeCommon,
+      $.paramT
+    ),
+
+    // type patterns that are safe in all contexts
+    _typeCommon: $ => choice(
       $._taggableIdentifierLU,
       $.listType,
       $.tupleType,
@@ -219,7 +226,7 @@ module.exports = grammar({
     typeclass: $ => seq(
       "class", 
       field("class", $.identifierU), 
-      field("param", repeat($._typeGroup)),
+      field("param", repeat($._typeCommon)),
       field("where", $.interface)
     ),
 
@@ -236,7 +243,7 @@ module.exports = grammar({
     instance: $ => seq(
       "instance",
       field("class", $.identifierU), 
-      field("param", repeat($._typeGroup)),
+      field("param", repeat($._typeCommon)),
       field("where", $.implementation)
 
     ),

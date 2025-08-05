@@ -981,7 +981,27 @@
           }
         ]
       },
-      "def": {
+      "generic": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
         "multiple": true,
         "required": true,
         "types": [
@@ -1019,26 +1039,6 @@
           },
           {
             "type": "tupleType",
-            "named": true
-          }
-        ]
-      },
-      "generic": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]

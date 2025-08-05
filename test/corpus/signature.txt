@@ -10,7 +10,7 @@ id a :: a -> a
   (signature
     name: (identifier)
     arg: (identifier)
-    def: (functionT
+    value: (functionT
       generic: (identifier)
       generic: (identifier))))
 
@@ -28,7 +28,7 @@ map a b :: (a -> b) -> [a] -> [b]
     name: (identifier)
     arg: (identifier)
     arg: (identifier)
-    def: (functionT
+    value: (functionT
       (functionT
         generic: (identifier)
         generic: (identifier))
@@ -36,3 +36,23 @@ map a b :: (a -> b) -> [a] -> [b]
         generic: (identifier))
       (listType
         generic: (identifier)))))
+
+
+===============================
+foo :: A -> A B -> C
+===============================
+
+foo :: A -> A B -> C
+
+---
+
+(source_file
+  (signature
+    name: (identifier)
+    value: (functionT
+      concrete: (identifierU)
+      (paramT
+        concrete: (identifierU)
+        concrete: (identifierU))
+      concrete: (identifierU))))
+

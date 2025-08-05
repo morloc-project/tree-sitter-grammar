@@ -494,7 +494,7 @@
         },
         {
           "type": "FIELD",
-          "name": "def",
+          "name": "value",
           "content": {
             "type": "SYMBOL",
             "name": "_type"
@@ -559,7 +559,7 @@
                     "type": "REPEAT",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_typeGroup"
+                      "name": "_typeCommon"
                     }
                   }
                 ]
@@ -796,7 +796,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_taggableIdentifierLU"
+          "name": "_typeCommon"
         },
         {
           "type": "SYMBOL",
@@ -804,45 +804,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "listType"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "tupleType"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_type"
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
           "name": "functionT"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
         }
       ]
     },
@@ -857,8 +819,17 @@
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
-            "name": "_typeGroup"
+            "name": "_typeParamGroup"
           }
+        }
+      ]
+    },
+    "_typeParamGroup": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_typeCommon"
         }
       ]
     },
@@ -867,7 +838,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_typeGroup"
+          "name": "_typeFunGroup"
         },
         {
           "type": "REPEAT1",
@@ -880,14 +851,27 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_typeGroup"
+                "name": "_typeFunGroup"
               }
             ]
           }
         }
       ]
     },
-    "_typeGroup": {
+    "_typeFunGroup": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_typeCommon"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "paramT"
+        }
+      ]
+    },
+    "_typeCommon": {
       "type": "CHOICE",
       "members": [
         {
@@ -1011,7 +995,7 @@
             "type": "REPEAT",
             "content": {
               "type": "SYMBOL",
-              "name": "_typeGroup"
+              "name": "_typeCommon"
             }
           }
         },
@@ -1080,7 +1064,7 @@
             "type": "REPEAT",
             "content": {
               "type": "SYMBOL",
-              "name": "_typeGroup"
+              "name": "_typeCommon"
             }
           }
         },
