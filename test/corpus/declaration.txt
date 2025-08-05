@@ -307,7 +307,7 @@ x = y    where
 
 ==============================
 nested wheres (spacing)
-===============================
+==============================
 
 x = 1
 x = y where
@@ -343,3 +343,34 @@ x = y where
       (declaration
         lhs: (identifier)
         rhs: (number)))))
+
+
+==============================
+Signatures in where statements
+==============================
+
+f = bar 2.0 where
+   bar :: Real -> Real
+   bar x = add x 30.0
+
+---
+
+(source_file
+  (declaration
+    (identifier)
+    (application
+      (identifier)
+      (number))
+    (block
+      (signature
+        (identifier)
+        (functionT
+          (identifierU)
+          (identifierU)))
+      (declaration
+        (identifier)
+        (identifier)
+        (application
+          (identifier)
+          (identifier)
+          (number))))))

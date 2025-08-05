@@ -268,7 +268,7 @@ module.exports = grammar({
     block: $ => seq(
       "where",
       $._indent,
-      repeat1(seq($._left_aligned, $.declaration)),
+      repeat1(seq($._left_aligned, choice($.declaration, $.signature))),
       $._dedent
     ),
 

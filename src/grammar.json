@@ -1229,8 +1229,17 @@
                 "name": "_left_aligned"
               },
               {
-                "type": "SYMBOL",
-                "name": "declaration"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "declaration"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "signature"
+                  }
+                ]
               }
             ]
           }
