@@ -275,7 +275,8 @@ module.exports = grammar({
     _expression: $ => choice(
       $.application,
       $.composition,
-      $._expressionSimple
+      $._expressionSimple,
+      $.lambdaExpr
     ),
 
     application: $ => choice(
@@ -301,18 +302,27 @@ module.exports = grammar({
       $.listExpr,
       $.tupleExpr,
       $.recordExpr,
-      parens($.application)
+      parens($.application),
+      parens($.lambdaExpr)
     ),
 
     _functionLike: $ => choice(
       $._term,
-      $.application
+      $.application,
+      parens($.lambdaExpr)
     ),
 
     _taggableIdentifierLU: $ => choice(
       field("generic", $.identifier),
       field("concrete", $.identifierU),
       $.taggedType
+    ),
+
+    lambdaExpr: $ => seq(
+      "\\",
+      repeat1($.identifier),
+      "->",
+      $._expression
     ),
 
     // language: $ => /[A-Za-z][A-Za-z0-9]*/,
@@ -335,7 +345,7 @@ module.exports = grammar({
     //
     _term: $ => choice(
       field("taggedTerm",  seq($.tag, $.identifier)),
-      field("term", $.identifier)
+      $.identifier
     ),
 
     tag: $ => /[a-z][a-zA-Z0-9]*:/,

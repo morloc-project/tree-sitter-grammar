@@ -16,16 +16,6 @@
             "named": true
           }
         ]
-      },
-      "term": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -42,6 +32,14 @@
         },
         {
           "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lambdaExpr",
           "named": true
         },
         {
@@ -108,16 +106,6 @@
             "named": true
           }
         ]
-      },
-      "term": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -126,6 +114,14 @@
       "types": [
         {
           "type": "application",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lambdaExpr",
           "named": true
         }
       ]
@@ -184,6 +180,10 @@
             "named": true
           },
           {
+            "type": "lambdaExpr",
+            "named": true
+          },
+          {
             "type": "listExpr",
             "named": true
           },
@@ -223,16 +223,6 @@
           },
           {
             "type": "tag",
-            "named": true
-          }
-        ]
-      },
-      "term": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -486,6 +476,76 @@
     }
   },
   {
+    "type": "lambdaExpr",
+    "named": true,
+    "fields": {
+      "taggedTerm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "application",
+          "named": true
+        },
+        {
+          "type": "composition",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lambdaExpr",
+          "named": true
+        },
+        {
+          "type": "listExpr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "recordExpr",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "tupleExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "language",
     "named": true,
     "fields": {}
@@ -507,16 +567,6 @@
             "named": true
           }
         ]
-      },
-      "term": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -533,6 +583,14 @@
         },
         {
           "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lambdaExpr",
           "named": true
         },
         {
@@ -820,16 +878,6 @@
             "named": true
           }
         ]
-      },
-      "term": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -850,6 +898,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lambdaExpr",
           "named": true
         },
         {
@@ -1206,16 +1258,6 @@
             "named": true
           }
         ]
-      },
-      "term": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -1232,6 +1274,14 @@
         },
         {
           "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lambdaExpr",
           "named": true
         },
         {
@@ -1541,6 +1591,10 @@
   },
   {
     "type": "[",
+    "named": false
+  },
+  {
+    "type": "\\",
     "named": false
   },
   {

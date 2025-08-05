@@ -26,15 +26,15 @@ foo x y = bar (x, 42, "string", True, False) [y]
     arg: (identifier)
     arg: (identifier)
     rhs: (application
-      term: (identifier)
+      (identifier)
       (tupleExpr
-        term: (identifier)
+        (identifier)
         (number)
         (string)
         (true)
         (false))
       (listExpr
-        term: (identifier)))))
+        (identifier)))))
 
 
 ==============================
@@ -68,8 +68,8 @@ foo = bar . baz
   (declaration
     lhs: (identifier)
     rhs: (composition
-      term: (identifier)
-      term: (identifier))))
+      (identifier)
+      (identifier))))
 
 
 ==============================
@@ -88,11 +88,11 @@ foo x y = (bar x . baz y) 42
     rhs: (application
       (composition
         (application
-          term: (identifier)
-          term: (identifier))
+          (identifier)
+          (identifier))
         (application
-          term: (identifier)
-          term: (identifier)))
+          (identifier)
+          (identifier)))
       (number))))
 
 ==============================
@@ -103,7 +103,17 @@ foo = map (\x -> bar x)
 
 ---
 
-stub
+(source_file
+  (declaration
+    lhs: (identifier)
+    rhs: (application
+      (identifier)
+      (lambdaExpr
+        (identifier)
+        (application
+          (identifier)
+          (identifier))))))
+
 
 ==============================
 multiple statements
@@ -142,15 +152,15 @@ x = y where
     rhs: (number))
   (declaration
     lhs: (identifier)
-    term: (identifier)
+    rhs: (identifier)
     where: (block
       (declaration
         lhs: (identifier)
-        term: (identifier)
+        rhs: (identifier)
         where: (block
           (declaration
             lhs: (identifier)
-            term: (identifier)
+            rhs: (identifier)
             where: (block
               (declaration
                 lhs: (identifier)

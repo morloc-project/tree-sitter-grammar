@@ -35,7 +35,7 @@ instance Packable [(a, b)] (Map a b) where
           alias: (identifier)))
       (declaration
         lhs: (identifier)
-        term: (identifier))
+        rhs: (identifier))
       (declaration
         lhs: (identifier)
-        term: (identifier)))))
+        rhs: (identifier)))))
